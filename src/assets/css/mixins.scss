@@ -1,0 +1,22 @@
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin joinClass($class) {
+  :global(#{$class}-appear) {
+    transform: translateX(100%);
+  }
+  :global(#{$class}-appear-active) {
+    transform: translateX(0);
+    transition: all 500ms;
+  }
+  :global( #{$class}-exit) {
+    transform: translateX(0);
+  }
+  :global(#{$class}-exit-active) {
+    transform: translateX(100%);
+    transition: all 500ms;
+  }
+}

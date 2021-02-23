@@ -1,0 +1,17 @@
+:global(.page-fade-enter) {
+  opacity: 0;
+}
+
+:global(.page-fade-enter-active) {
+  opacity: 1;
+  transition: all 500ms;
+}
+
+:global(.page-fade-exit) {
+  opacity: 1;
+}
+
+:global(.page-fade-exit-active) {
+  opacity: 0;
+  transition: all 500ms;
+}

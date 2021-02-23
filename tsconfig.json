@@ -1,0 +1,72 @@
+{
+  "compilerOptions": {
+    // "outDir": "./dist/",
+    // 制定模块解析策略
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "module": "esnext",
+    "target": "es5",
+    "jsx": "react",
+    // 允许编译 JS 文件
+    "allowJs": true,
+    // 跳过类库的检查
+    "skipLibCheck": true,
+    /* 当没有默认导出的时候允许默认导入，这个在代码执行的时候没有作用，只是在类型检查的时候生效 */
+    "allowSyntheticDefaultImports": true,
+    // 不生成文件，只做类型检查
+    "noEmit": true,
+    // 允许 export = xxx 导出 ，并使用 import xxx form "module-name" 导入
+    "esModuleInterop": true,
+    /* 指定要包含在编译中的库文件——引用类库——即申明文件，如果输出的模块方式是 es5，就会默认引入 "dom","es5","scripthost" 。如果在 TS 中想要使用一些 ES6 以上版本的语法，就需要引入相关的类库 */
+    "lib": ["es5", "es6", "es7", "esnext", "dom", "dom.iterable", "scripthost"],
+    "paths": {
+      /*路径映射的集合*/
+      "@src/*": [
+        "src/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@css/*": [
+        "src/assets/css/*"
+      ],
+      "@common/*": [
+        "src/common/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@routers/*": [
+        "src/routers/*"
+      ],
+      "@store/*": [
+        "src/store/*"
+      ],
+      "@api/*": [
+        "src/api/*"
+      ],
+      "@model/*": [
+        "src/pageModel/*"
+      ],
+      "@apiModel/*": [
+        "src/apiModel/*"
+      ],
+      "@lib/*": [
+        "src/lib/*"
+      ],
+      "@config/*": [
+        "src/config/*"
+      ]
+    }
+  },
+  "include": [
+    "./src"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "mock"
+  ]
+}

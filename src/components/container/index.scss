@@ -1,0 +1,21 @@
+.main-card-body {
+  &-header {
+    position: relative;
+    padding: 28px 32px 20px;
+    &::after {
+      position: absolute;
+      content: ' ';
+      left: 20px;
+      right: 20px;
+      bottom: 0;
+      height: 1px;
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+  }
+  &-content {
+    margin: 24px 24px 0;
+    &-operation {
+      margin: 24px 0 20px;
+    }
+  }
+}

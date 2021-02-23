@@ -1,0 +1,57 @@
+.editorWrap {
+  flex: 1;
+  padding-top: 60px;
+  display: flex;
+  .editorTool {
+    width: 300px;
+    padding: 30px 20px;
+    background: #fff;
+    h2 {
+      font-size: 20px;
+    }
+    .editorToolItem {
+      margin: 5px;
+      padding: 5px 0;
+      border: 1px dashed #000;
+      border-radius: 15px;
+      font-size: 13px;
+      text-align: center;
+      cursor: pointer;
+    }
+  }
+  .editorContent {
+    flex: 1;
+    padding: 25px;
+    .editorItem {
+      position: relative;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: #fff;
+      cursor: move;
+      &:hover, &.active {
+        background: #f7f7f7;
+      }
+      .editorItemControl {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9;
+        .editorItemRemoveControl {
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+      }
+    }
+  }
+  .editorConfig {
+    transition: width .5s;
+    width: 280px;
+    background: #fff;
+    .editorConfigWrap {
+      padding: 20px;
+    }
+  }
+}
