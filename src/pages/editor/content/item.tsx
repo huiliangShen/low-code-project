@@ -15,7 +15,7 @@ export interface CardProps {
     handleRemove: () => void
     handleSelectItem: (id: any) => void
     isActive?: boolean
-    item: IFormItem<any>
+    item: IFormItem
 }
 
 interface DragItem {
@@ -91,13 +91,18 @@ export const EditorItem: FC<CardProps> = ({id, index = 24, item, isActive, moveC
     drag(drop(ref))
 
     const child = () => {
-        const require = item.formConfigData.require && [{required: true}]
         const render = () => {
             switch (item.type) {
                 case 1:
                     return <Input {...item.formConfigData}/>
                 case 2:
-                    return <Checkbox {...item.formConfigData}>123</Checkbox>
+                    return <Checkbox.Group style={{width: '100%'}}>
+                        {
+                            item.formConfigData?.options && item.formConfigData.options?.map((item, i) => (
+                                <Checkbox value={item} key={i}>{item}</Checkbox>
+                            ))
+                        }
+                    </Checkbox.Group>
                 case 3:
                     return <DatePicker style={{width: '100%'}} {...item.formConfigData}/>
                 case 5:
@@ -105,7 +110,7 @@ export const EditorItem: FC<CardProps> = ({id, index = 24, item, isActive, moveC
             }
         }
         return (
-            <Form.Item label={item.formConfigData.label} rules={require} name={item.formConfigData.name}>
+            <Form.Item label={item.label} rules={(item.require && [{required: item.require}]) || []} name={item.name}>
                 {render()}
             </Form.Item>
         )

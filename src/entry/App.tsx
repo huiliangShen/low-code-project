@@ -2,14 +2,15 @@
 import React, {Fragment} from 'react'
 import {Switch, BrowserRouter, Route, Redirect} from 'react-router-dom'
 import {renderRoutes} from '../routers'
-import {commonConfig, editorConfig} from '../routers/routerConfig'
-import { Spin} from 'antd'
+import {commonConfig, editorConfig, LayoutComponents} from '../routers/routerConfig'
+import {Spin} from 'antd'
 import {useSelector} from 'react-redux'
 import {RootState} from '@src/store'
 // import Login from '@src/pages/login'
 // import NotFound from '@src/pages/404'
 
 const App: () => any = () => {
+    console.log(renderRoutes(LayoutComponents))
     const {loading} = useSelector((state: RootState) => state.app)
     // const dispatch = useDispatch()
 
@@ -48,7 +49,8 @@ const App: () => any = () => {
                             return <Login/>
                         }}/> */}
                         {/* {renderRoutes(commonConfig)} */}
-                        {renderRoutes(editorConfig)}
+                        {/* {renderRoutes(editorConfig)} */}
+                        {renderRoutes(LayoutComponents)}
                     </Switch>
                 </BrowserRouter>
             </Spin>

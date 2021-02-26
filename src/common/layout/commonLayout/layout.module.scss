@@ -144,7 +144,7 @@
     flex: 1;
     overflow-y: scroll;
 
-    header {
+    & > header {
       position: fixed;
       top: 0;
       left: 220px;
@@ -157,7 +157,7 @@
 
       .main-header {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
         height: 60px;
         padding: 0 20px;

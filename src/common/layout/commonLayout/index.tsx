@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React from 'react'
+import {PlusOutlined} from '@ant-design/icons'
 import styles from './layout.module.scss'
 import {IRouterFC} from '@model/common'
 import {TransitionGroup, CSSTransition} from 'react-transition-group'
@@ -7,18 +8,19 @@ import {renderRoutes} from '@src/routers'
 import Side from './side'
 import {Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Menu, Dropdown} from 'antd'
+import {Menu, Dropdown, Button} from 'antd'
 import {TOKEN_NAME} from '@src/config'
 import {useDispatch, useSelector} from 'react-redux'
 import {handleSetUserInfo} from '@store/models/app/actions'
 import {RootState} from '@src/store'
 // import {commonConfig} from '@routers/routerConfig'
 
-const CommonLayout: React.FC<IRouterFC> = ({routes, location}) => {
+const CommonLayout: React.FC<IRouterFC> = ({routes, location, ...props}) => {
     const dispatch = useDispatch()
+    console.log(props)
     const {userData} = useSelector((state: RootState) => state.app)
     // const {pathname} = useLocation()
-    // console.log('common', renderRoutes(routes))
+    console.log('common', renderRoutes(routes))
     const handleOnExit = () => {
         dispatch(handleSetUserInfo(null))
         localStorage.removeItem(TOKEN_NAME)
@@ -42,12 +44,13 @@ const CommonLayout: React.FC<IRouterFC> = ({routes, location}) => {
                     <header>
                         <div className={styles.mainHeader}>
                             <div className={styles.mainHeaderCollapse}/>
-                            <Dropdown overlay={menu}>
+                            <Button type={'primary'} shape={'round'} icon={<PlusOutlined />} onClick={() => props.history.push('/editor/home')}>创建应用</Button>
+                           {/* <Dropdown overlay={menu}>
                                 <div className={styles.mainHeaderUser}>
-                                    {/* <div className={styles.mainHeaderUserImg}>1</div> */}
+                                     <div className={styles.mainHeaderUserImg}>1</div>
                                     <div className={styles.mainHeaderUserName}>{userData?.username}</div>
                                 </div>
-                            </Dropdown>
+                            </Dropdown> */}
                         </div>
                     </header>
                     <div className={styles.mainContent}>

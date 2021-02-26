@@ -7,7 +7,7 @@ import {RouteConfigDeclaration} from '@model/common'
 import PropTypes from 'prop-types'
 import {Menu} from 'antd'
 import {getSideRoutes} from '@routers/index'
-import logo from '@assets/img/logo.png'
+// import logo from '@assets/img/logo.png'
 
 const {SubMenu} = Menu
 
@@ -156,8 +156,8 @@ const Side = () => {
         <aside>
             <div className={styles.menuSideContent}>
                 <div className={styles.menuSideLogo}>
-                    <img src={logo} alt=""/>
-                    <h3>溯源平台后台管理系统</h3>
+                    {/* <img src={logo} alt=""/> */}
+                    <h3>BPMN测试系统</h3>
                 </div>
                 <div className={styles.menuList}>
                     <Menu mode="inline" style={{width: '100%'}}

@@ -1,8 +1,9 @@
-import history from 'history'
+import history, {History} from 'history'
 export interface IRouterFC {
     routes?: RouteConfigDeclaration[]
     item?: RouteConfigDeclaration
     location?: history.Location
+    history?: History
 }
 
 export interface RouteConfigDeclaration {
@@ -66,20 +67,19 @@ export interface RouteConfigDeclaration {
     authCode?: string[]
 }
 
-export interface IFormItem<T> {
+export interface IFormItem {
     id?: number | string
     type: number
     formConfigData: IFormConfigData
     colSpan?: number
     rule?: string
     colon?: boolean
-    data?: T
-}
-
-export interface IFormConfigData {
     label: string
     require?: boolean
     name?: string
+}
+
+export interface IFormConfigData {
     placeholder?: string
     rows?: number
     options?: string[]

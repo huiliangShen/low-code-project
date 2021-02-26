@@ -3,8 +3,8 @@ import * as actions from './action-types'
 import {IFormItem} from '@src/pageModel/common'
 
 interface StoreState {
-    formData: Array<IFormItem<any>>
-    selectedFormData?: IFormItem<any>
+    formData: Array<IFormItem>
+    selectedFormData?: IFormItem
     activeIndex: number
 }
 

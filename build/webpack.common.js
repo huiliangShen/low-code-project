@@ -32,7 +32,7 @@ module.exports = {
             },
             {
                 test: /\.css$/i,
-                include: [path.resolve(__dirname, '../src'), path.resolve(__dirname, '../node_modules/react-image-crop'), path.resolve(__dirname, '../node_modules/antd')],
+               // include: [path.resolve(__dirname, '../src'), path.resolve(__dirname, '../node_modules/react-image-crop'), path.resolve(__dirname, '../node_modules/antd')],
                 // exclude: /(node_modules)/,
                 use: [
                     process.env.NODE_ENV === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,

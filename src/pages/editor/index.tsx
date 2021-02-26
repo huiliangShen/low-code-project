@@ -37,34 +37,40 @@ const formItems: Array<{ id: number, type: number, name: string }> = [
 const Editor = () => {
     const {activeIndex} = useSelector((state: RootState) => state.editor)
     const dispatch = useDispatch()
+    const style: React.CSSProperties = {
+        width: activeIndex === -1 ? 0 : '295px',
+        visibility: activeIndex === -1 ? 'hidden' : 'visible',
+        overflow: 'hidden'
+    }
 
     const handleAddItem = (type: number) => {
         const uid = uuid(10, 16)
-        const data: IFormItem<any> = {
+        const data: IFormItem = {
             id: uid,
             colon: false,
             colSpan: 24,
+            label: '',
+            require: false,
+            name: `name-${uid}`,
             formConfigData: {
-                label: '',
-                require: false,
-                name: `name-${uid}`,
+                placeholder: '请填写内容',
                 rows: type === 5 ? 2 : -1,
-                options: type === 2 ? ['demo1', 'demo2'] : []
+                options: type === 2 ? ['未命名1', '未命名2'] : []
             },
             type
         }
         switch (type) {
             case 1:
-                data.formConfigData.label = '文本'
+                data.label = '文本'
                 break
             case 2:
-                data.formConfigData.label = '多选'
+                data.label = '多选'
                 break
             case 3:
-                data.formConfigData.label = '时间'
+                data.label = '时间'
                 break
             case 5:
-                data.formConfigData.label = '多行文本'
+                data.label = '多行文本'
                 break
         }
         dispatch(handleEditorAddItem(data))
@@ -79,7 +85,8 @@ const Editor = () => {
                         {
                             formItems.map((item) => (
                                 <Col span={12} key={item.id}>
-                                    <div className={styles.editorToolItem} onClick={() => handleAddItem(item.type)}>{item.name}</div>
+                                    <div className={styles.editorToolItem}
+                                         onClick={() => handleAddItem(item.type)}>{item.name}</div>
                                 </Col>
                             ))
                         }
@@ -87,10 +94,10 @@ const Editor = () => {
                 </div>
             </div>
             <div className={styles.editorContent}>
-                <EditorContent />
+                <EditorContent/>
             </div>
-            <div className={styles.editorConfig} style={{width: activeIndex === -1 ? 0 : '295px', visibility: activeIndex === -1 ? 'hidden' : 'visible'}}>
-                <EditorConfig />
+            <div className={styles.editorConfig} style={style}>
+                <EditorConfig/>
             </div>
         </DndProvider>
     </div>
