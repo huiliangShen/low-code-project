@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
-import {Card, Button, Input, Form, Space} from 'antd'
+import {Card, Button, Input, Form, Space, message} from 'antd'
+import {getList as getListBusiness, verify} from '@src/api/business'
 import Container from '@components/container'
 import {Drawer} from '@common/drawer'
 import CTable from '@components/container/cTable'
@@ -28,67 +29,66 @@ const FormDatas: IFormData[] = [
 ]
 
 const Task = () => {
-    const [, setList] = useState<any>([])
+    const [list, setList] = useState<any>([])
+    const [id, setId] = useState<string>(null)
     const [drawLoading, setDrawLoading] = useState<boolean>(false)
     const [taskShow, setTaskShow] = useState<boolean>(false)
 
-    const dataSource: IData[] = [
-        {
-            key: '1',
-            name: '胡彦斌',
-            age: 32,
-            address: '西湖区湖底公园1号'
-        },
-        {
-            key: '2',
-            name: '胡彦祖',
-            age: 42,
-            address: '西湖区湖底公园1号'
-        }
-    ]
-
     const columns = [
         {
-            title: '姓名',
-            dataIndex: 'name',
-            key: 'name'
+            title: 'processDefinitionId',
+            dataIndex: 'processDefinitionId',
+            key: 'processDefinitionId'
         },
         {
-            title: '年龄',
-            dataIndex: 'age',
-            key: 'age'
+            title: 'processInstanceId',
+            dataIndex: 'processInstanceId',
+            key: 'processInstanceId'
         },
         {
-            title: '住址',
-            dataIndex: 'address',
-            key: 'address'
+            title: '处理人',
+            dataIndex: 'assignee',
+            key: 'assignee'
         },
         {
             title: '操作',
             dataIndex: 'operation',
             key: 'operation',
-            render: () => (
-                <Button type={'link'} onClick={showDetail}>审批</Button>
+            render: (text: any, record: any) => (
+                <Button type={'link'} onClick={() => showDetail(record)}>审批</Button>
             )
         }
     ]
 
-    const showDetail = () => {
+    const showDetail = (obj: any) => {
+        setId(obj.id)
         setTaskShow(true)
     }
 
     const handleAudit = (audit: boolean) => {
         console.log(audit)
-        setDrawLoading(false)
-        setTaskShow(false)
+        setDrawLoading(true)
+        verify({taskId: id, approved: audit})
+            .then(res => {
+                setDrawLoading(false)
+                if (res.statusCode === 200) {
+                    message.success('操作成功')
+                    setTaskShow(false)
+                    getList()
+                }
+            })
+            .catch(() => setDrawLoading(false))
     }
 
     useEffect(() => {
         getList()
     }, [])
 
-    async function getList() {
-        // const res = await test({page: 1}).then(res => res.data)
+    function getList() {
+        getListBusiness({userId: 2001})
+            .then((res: any) => {
+                setList(res.data)
+            })
         setList([])
     }
 
@@ -105,19 +105,12 @@ const Task = () => {
     return (
         <Card bodyStyle={{padding: 0}}>
             <Container searchNode={<SearchNode/>}>
-                <CTable<IData> rowKey={'key'} dataSource={dataSource} loading={false} columns={columns} pagination={{
-                    showTotal: (total, range) => `第${range[0]}-${range[1]}条/总共${total}条`,
-                    total: 100,
-                    defaultPageSize: 20,
-                    defaultCurrent: 1,
-                    onChange: (page, pageSize) => {
-                        console.log(page, pageSize)
-                    }
-                }}/>
+                <CTable<IData> rowKey={'key'} dataSource={list} loading={false} columns={columns} pagination={null}/>
             </Container>
             <Drawer loading={drawLoading}
                     toggleShow={() => setTaskShow(false)}
                     close={() => setTaskShow(false)}
+                    name={'审批'}
                     show={taskShow}
                     footer={<Space>
                         <Button type={'primary'} onClick={() => handleAudit(true)}>审批</Button>

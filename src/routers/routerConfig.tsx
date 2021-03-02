@@ -29,6 +29,15 @@ export const LayoutComponents: RouteConfigDeclaration[] = [
                 key: '2',
                 exact: true,
                 icon: 'icon-suyuanpingtaiicon-01'
+            },
+            {
+                path: '/home/process',
+                name: '流程',
+                component: React.lazy(() => import('@src/pages/processList')),
+                isDynamic: true,
+                hidden: false,
+                key: '3',
+                icon: 'icon-suyuanpingtaiicon-01'
             }
         ]
     },
@@ -46,7 +55,7 @@ export const LayoutComponents: RouteConfigDeclaration[] = [
                 isDynamic: true
             },
             {
-                path: '/editor/preview',
+                path: '/editor/preview/:id',
                 name: '编辑器',
                 component: React.lazy(() => import('@src/pages/preview')),
                 key: '12',
@@ -58,6 +67,14 @@ export const LayoutComponents: RouteConfigDeclaration[] = [
                 name: '编辑器',
                 component: React.lazy(() => import('@src/pages/process')),
                 key: '12',
+                exact: true,
+                isDynamic: true
+            },
+            {
+                path: '/editor/publish',
+                name: '发布',
+                component: React.lazy(() => import('@src/pages/publish')),
+                key: '13',
                 exact: true,
                 isDynamic: true
             }
@@ -80,6 +97,12 @@ export const commonConfig: RouteConfigDeclaration[] = [
                 path: '/home/task',
                 name: '任务',
                 key: '2',
+                icon: 'icon-suyuanpingtaiicon-01'
+            },
+            {
+                path: '/home/process',
+                name: '流程',
+                key: '3',
                 icon: 'icon-suyuanpingtaiicon-01'
             }
         ]

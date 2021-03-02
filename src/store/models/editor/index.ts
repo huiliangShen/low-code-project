@@ -22,6 +22,8 @@ export default (state: StoreState = defaultStatus, action: EnthusiasmAction): St
             return {...state, activeIndex: action.index, selectedFormData: action.activeData}
         case actions.EDITOR_UPDATE_FORM:
             return {...state, formData: action.data}
+        case actions.EDITOR_REST_FORM:
+            return {...state, formData: [], activeIndex: -1, selectedFormData: null}
         case actions.EDITOR_REMOVE_ITEM: {
             const forms = state.formData.map(e => e)
             forms.splice(action.index, 1)

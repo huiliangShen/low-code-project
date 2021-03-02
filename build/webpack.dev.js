@@ -37,7 +37,7 @@ module.exports = merge(common, {
                 target: 'http://localhost:3000'
             },
             '/api': {
-                target: 'http://192.168.3.47:32688',
+                target: 'http://192.168.3.160:3003',
                 pathRewrite: {'^/api': ''},
                 changeOrigin: true
             }

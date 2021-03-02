@@ -11,6 +11,7 @@ import {TOKEN_NAME} from '@src/config'
 import {useDispatch, useSelector} from 'react-redux'
 import {handleSetUserInfo} from '@store/models/app/actions'
 import {RootState} from '@src/store'
+import eventBus from '@lib/eventBus'
 // import {commonConfig} from '@routers/routerConfig'
 
 const EditorLayout: React.FC<IRouterFC> = ({routes, location, history}) => {
@@ -24,7 +25,7 @@ const EditorLayout: React.FC<IRouterFC> = ({routes, location, history}) => {
         localStorage.removeItem(TOKEN_NAME)
         window.location.reload()
     }
-
+    console.log(history)
     // console.log('layout', pathname)
     const menu = (
         <Menu>
@@ -39,6 +40,10 @@ const EditorLayout: React.FC<IRouterFC> = ({routes, location, history}) => {
         message.success('保存成功')
     }
 
+    const handleSaveXml = () => {
+        eventBus.emit('saveXml')
+    }
+
     return (
         <div className={styles.idsLayout}>
             <section className={styles.idsContent}>
@@ -48,6 +53,7 @@ const EditorLayout: React.FC<IRouterFC> = ({routes, location, history}) => {
                             <Button shape={'round'} onClick={() => history.push('/home/index')}
                                     style={{float: 'left'}}>返回</Button>
                             <div className={styles.mainHeaderCollapse}>
+                                {history.location.pathname.indexOf('/editor/preview') === -1 &&
                                 <ul className={styles.mainHeaderCollapseList}>
                                     <li className={styles.mainHeaderCollapseItem}
                                         onClick={() => history.push('/editor/home')}>
@@ -57,11 +63,28 @@ const EditorLayout: React.FC<IRouterFC> = ({routes, location, history}) => {
                                         onClick={() => history.push('/editor/process')}>
                                         流程设计
                                     </li>
-                                </ul>
+                                    <li className={styles.mainHeaderCollapseItem}
+                                        onClick={() => history.push('/editor/publish')}>
+                                        发布
+                                    </li>
+                                </ul>}
                             </div>
                             <Space>
-                                <Button shape={'round'} onClick={() => history.push('/editor/preview')}>预览</Button>
-                                <Button shape={'round'} type={'primary'} onClick={() => handleSave()}>保存</Button>
+                                {/* <Button shape={'round'} onClick={() => history.push('/editor/preview')}>预览</Button> */}
+                                {
+                                    history.location.pathname.indexOf('/editor/process') > -1 &&
+                                    <Button shape={'round'} type={'primary'}
+                                            onClick={() => handleSaveXml()}>保存流程</Button>
+                                }
+                                {
+                                    history.location.pathname.indexOf('/editor/home') > -1 &&
+                                    <Button shape={'round'} type={'primary'} onClick={() => handleSave()}>保存表单</Button>
+                                }
+                                {
+                                    history.location.pathname.indexOf('/editor/home') === -1 && history.location.pathname.indexOf('/editor/process') === -1 &&
+                                    <Button style={{visibility: 'hidden'}} shape={'round'} type={'primary'}
+                                            onClick={() => handleSave()}>保存表单</Button>
+                                }
                             </Space>
                         </div>
                     </header>

@@ -1,4 +1,17 @@
 .processWrap {
   width: 100%;
-  padding-top: 70px;
+  padding-top: 60px;
+  position: relative;
+  height: 100%;
+  display: flex;
+  background: #fff;
+}
+:global {
+  .properties-panel-parent {
+    overflow: auto;
+    background: #eee;
+  }
+  #canvas {
+    width: 100%;
+  }
 }

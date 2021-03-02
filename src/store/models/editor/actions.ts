@@ -17,12 +17,16 @@ export interface handleUpdateForm {
     data: Array<IFormItem>
 }
 
+export interface handleRestForm {
+    type: constants.EDITOR_REST_FORM
+}
+
 export interface handleRemove {
     type: constants.EDITOR_REMOVE_ITEM
     index: number
 }
 
-export declare type EnthusiasmAction = handleEditorAddItem | handleSelectItem | handleUpdateForm | handleRemove
+export declare type EnthusiasmAction = handleEditorAddItem | handleSelectItem | handleUpdateForm | handleRemove | handleRestForm
 
 export function handleEditorAddItem(item: IFormItem): handleEditorAddItem {
     return {
@@ -50,5 +54,11 @@ export function handleRemove(index: number): handleRemove {
     return {
         type: constants.EDITOR_REMOVE_ITEM,
         index
+    }
+}
+
+export function handleRestForm(): handleRestForm {
+    return {
+        type: constants.EDITOR_REST_FORM
     }
 }

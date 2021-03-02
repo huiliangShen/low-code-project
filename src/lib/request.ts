@@ -22,13 +22,14 @@ interface HttpRequest {
 }
 
 interface Response<T> {
-    code: number
+    statusCode: number
     result: T
     message: string
 }
 
 const service: AxiosInstance = axios.create({
-    timeout: 60000
+    timeout: 60000,
+    baseURL: process.env.NODE_ENV === 'development' ? '' : 'http://192.168.3.160:3003'
 })
 
 // let count401 = 0
@@ -57,7 +58,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     (response: AxiosResponse) => {
         const res = response.data
-        if (res.code !== ERROR_CODE && !(res instanceof Blob)) {
+        if (res.statusCode !== ERROR_CODE && !(res instanceof Blob)) {
             message.error(res.message)
         }
         return response

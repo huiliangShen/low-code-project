@@ -55,7 +55,7 @@ module.exports = {
                 include: [path.resolve(__dirname, '../src'), path.resolve(__dirname, '../node_modules/antd')],
                 use: [
                     process.env.NODE_ENV === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
-                    /*{
+                    /* {
                         loader: 'css-loader',
                         options: {
                             importLoaders: 2,
@@ -67,7 +67,7 @@ module.exports = {
                                 localIdentName: '[path][name]__[local]--[hash:base64:5]'
                             } *!/
                         }
-                    },*/
+                    }, */
                     'css-loader',
                     // 'postcss-loader',
                     {
@@ -85,6 +85,10 @@ module.exports = {
                         }
                     }
                 ]
+            },
+            {
+                test: /\.bpmn$/,
+                use: 'raw-loader'
             },
             {
                 test: /\.(sass|scss)$/i,

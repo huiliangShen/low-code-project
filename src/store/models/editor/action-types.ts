@@ -13,3 +13,6 @@ export type EDITOR_SET_ACTIVE_ITEM = typeof EDITOR_SET_ACTIVE_ITEM
 // 删除表单项
 export const EDITOR_REMOVE_ITEM = 'EDITOR_REMOVE_ITEM'
 export type EDITOR_REMOVE_ITEM = typeof EDITOR_REMOVE_ITEM
+// 重置表单
+export const EDITOR_REST_FORM = 'EDITOR_REST_FORM'
+export type EDITOR_REST_FORM = typeof EDITOR_REST_FORM

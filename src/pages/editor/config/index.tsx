@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
-import {Form, Input, Empty, Checkbox, Radio, InputNumber, Button} from 'antd'
+import {Form, Input, Empty, Checkbox, Radio, InputNumber, Button, message} from 'antd'
 import styles from '../index.scss'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootState} from '@src/store'
 import {handleUpdateForm} from '@store/models/editor/actions'
 import PropTypes from 'prop-types'
+import {CloseOutlined} from '@ant-design/icons'
 
 const {Item} = Form
 
@@ -72,7 +73,7 @@ const EditorConfig = () => {
                           checked={selectedFormData.require}>是否必填项</Checkbox>
             </Item>
             {selectedFormData.type === 2 && <Item label={'选项'}>
-                <OptionsChange options={selectedFormData.formConfigData.options}/>
+                <OptionsChange options={selectedFormData.formConfigData.options} onChange={(list) => handleChange(list, 3, 'options')}/>
             </Item>}
             {selectedFormData.type === 5 && <Item label={'行数'}>
                 <InputNumber min={2} step={1} placeholder={'行数'} value={selectedFormData.formConfigData.rows || 2}
@@ -82,25 +83,49 @@ const EditorConfig = () => {
     </div>
 }
 
-const OptionsChange: React.FC<{ options: string[] }> = ({options}) => {
+const OptionsChange: React.FC<{ options: string[], onChange: (data: string[]) => void }> = ({options, onChange}) => {
     const [data, setData] = useState<string[]>(options)
+
+    const handleUpdateOption = (i: number, e: React.ChangeEvent<HTMLInputElement>) => {
+        const str = e.target.value
+        const newData = data.slice(0, data.length)
+        newData.splice(i, 1, str)
+        setData(newData)
+        onChange(newData)
+    }
+
+    const handleRemove = (index: number) => {
+        if (data.length === 1) {
+            message.warn('至少需要一项')
+            return false
+        }
+        const newData = data.filter((e, i) => i !== index)
+        setData(newData)
+        onChange(newData)
+    }
 
     return <div className="editorConfigOptions">
         {
             data.map((item, i) => (
-                <div className="editorConfigOptionsItem" key={i}>
-
+                <div className="editorConfigOptionsItem" style={{padding: '0 0 5px'}} key={i}>
+                    <Input value={item} addonAfter={<CloseOutlined onClick={() => handleRemove(i)}/>}
+                           onChange={(e) => handleUpdateOption(i, e)}/>
                 </div>
             ))
         }
         <div className="editorConfigOptionsAdd">
-            <Button block type={'primary'} onClick={() => setData([...data, '未命名'])}>新增</Button>
+            <Button block type={'primary'} onClick={() => {
+                const newData = [...data, '未命名']
+                setData(newData)
+                onChange(newData)
+            }}>新增</Button>
         </div>
     </div>
 }
 
 OptionsChange.propTypes = {
-    options: PropTypes.any
+    options: PropTypes.any,
+    onChange: PropTypes.func
 }
 
 export default EditorConfig

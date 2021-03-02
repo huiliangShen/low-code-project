@@ -12,6 +12,7 @@ import {Menu, Dropdown, Button} from 'antd'
 import {TOKEN_NAME} from '@src/config'
 import {useDispatch, useSelector} from 'react-redux'
 import {handleSetUserInfo} from '@store/models/app/actions'
+import {handleUpdateForm} from '@store/models/editor/actions'
 import {RootState} from '@src/store'
 // import {commonConfig} from '@routers/routerConfig'
 
@@ -36,6 +37,11 @@ const CommonLayout: React.FC<IRouterFC> = ({routes, location, ...props}) => {
         </Menu>
     )
 
+    const addNew = () => {
+        dispatch(handleUpdateForm([]))
+        props.history.push('/editor/home')
+    }
+
     return (
         <div className={styles.idsLayout}>
             <section className={styles.idsContent}>
@@ -44,7 +50,7 @@ const CommonLayout: React.FC<IRouterFC> = ({routes, location, ...props}) => {
                     <header>
                         <div className={styles.mainHeader}>
                             <div className={styles.mainHeaderCollapse}/>
-                            <Button type={'primary'} shape={'round'} icon={<PlusOutlined />} onClick={() => props.history.push('/editor/home')}>创建应用</Button>
+                            <Button type={'primary'} shape={'round'} icon={<PlusOutlined />} onClick={() => addNew()}>创建应用</Button>
                            {/* <Dropdown overlay={menu}>
                                 <div className={styles.mainHeaderUser}>
                                      <div className={styles.mainHeaderUserImg}>1</div>
